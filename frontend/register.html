@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register | Barangay System</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <style>
+      .card {
+        width: 420px;
+        text-align: left;
+      }
+
+      h2 {
+        text-align: center;
+        color: #2e59d9;
+        margin-bottom: 1.2rem;
+      }
+
+      form label {
+        display: block;
+        font-weight: 500;
+        margin-bottom: 0.2rem;
+        font-size: 0.9rem;
+      }
+
+      form input,
+      form select {
+        width: 100%;
+        padding: 0.8rem;
+        margin-bottom: 0.8rem;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 1rem;
+      }
+
+      #message {
+        text-align: center;
+        font-weight: 600;
+        margin-top: 0.8rem;
+      }
+
+      a {
+        color: #2e59d9;
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <h2>Resident Registration</h2>
+
+      <form id="registerForm">
+       <label for="first_name">First Name</label>
+       <input type="text" id="first_name" name="first_name" required />
+       <small id="firstNameError" class="error-msg"></small>
+
+        <label for="last_name">Last Name</label>
+        <input type="text" id="last_name" name="last_name" required />
+        <small id="lastNameError" class="error-msg"></small>
+
+        <label for="middle_initial">Middle Initial</label>
+        <input type="text" id="middle_initial" name="middle_initial" maxlength="1" />
+        <small id="middleError" class="error-msg"></small>
+
+        <label for="gender">Gender</label>
+        <select id="gender" name="gender" required>
+          <option value="">Select</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+        </select>
+
+        <label for="birthdate">Birthdate</label>
+        <input type="date" id="birthdate" name="birthdate" required />
+        <small id="birthdateError" class="error-msg"></small>
+
+        <label for="address">Address</label>
+        <input type="text" value="Casambalangan, Santa Ana, Cagayan" disabled />
+
+        <label for="contact_number">Contact Number</label>
+        <input type="text" id="contact_number" name="contact_number" />
+        <small id="contactError" class="error-msg"></small>
+
+        <hr style="margin: 1rem 0; border: none; border-top: 1px solid #ddd;" />
+
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" required />
+        <small id="usernameError" class="error-msg"></small>
+
+
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required />
+
+        <button type="submit">Register</button>
+
+        <p class="mt-3 text-center" style="text-align: center; margin-top: 1rem;">
+          Already have an account? <a href="login.html">Login here</a>
+        </p>
+
+        <p id="message"></p>
+      </form>
+    </div>
+
+    <script src="js/config.js"></script>
+    <script src="js/register.js"></script>
+  </body>
+</html>

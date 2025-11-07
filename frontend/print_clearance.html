@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Barangay Clearance</title>
+
+  <style>
+    body {
+      font-family: "Times New Roman", serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .paper {
+      width: 8.5in;
+      min-height: 11in;
+      margin: auto;
+      background: white;
+      padding: 40px 60px;
+      border: 1px solid #000;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .header img {
+      width: 90px;
+      height: 90px;
+    }
+
+    .title {
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    .title h2 {
+      margin: 0;
+      text-decoration: underline;
+      font-size: 26px;
+    }
+
+    .content {
+      font-size: 18px;
+      text-align: justify;
+      line-height: 1.8;
+      margin-top: 20px;
+    }
+
+    .signatures {
+      margin-top: 60px;
+      display: flex;
+      justify-content: space-between;
+      padding: 0 40px;
+    }
+
+    .sign-box {
+      text-align: center;
+    }
+
+    .sign-box .name {
+      margin-top: 80px;
+      text-decoration: underline;
+      font-weight: bold;
+    }
+
+    .control-number {
+      margin-top: 30px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    @media print {
+      body {
+        background: white;
+      }
+      .print-hide {
+        display: none;
+      }
+    }
+
+    .print-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 10px 15px;
+      background: #007bff;
+      color: white;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <button class="print-btn print-hide" onclick="window.print()">Print</button>
+
+  <div class="paper">
+    <div class="header">
+      <h3><span id="barangayName">Casambalangan</span></h3>
+    </div>
+
+    <div class="title">
+      <h2>BARANGAY CLEARANCE</h2>
+    </div>
+
+    <div class="control-number">
+      Control No: <span id="controlNumber">---</span><br />
+      Issued on: <span id="issuedDate">---</span>
+    </div>
+
+    <div class="content" id="clearanceContent">
+      Loading clearance details...
+    </div>
+
+    <div class="signatures">
+      <div class="sign-box">
+        <div class="name">__________________________</div>
+        <div>Barangay Captain</div>
+      </div>
+
+      <div class="sign-box">
+        <div class="name">__________________________</div>
+        <div>Secretary</div>
+      </div>
+    </div>
+  </div>
+  <script src="js/config.js"></script>
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const clearanceId = urlParams.get("id");
+
+    if (!clearanceId) {
+      document.getElementById("clearanceContent").textContent = "Invalid clearance request.";
+      throw new Error("Missing clearance ID");
+    }
+
+    fetch(`${API_URL}/clearances/print/${clearanceId}`)
+      .then(res => res.json())
+      .then(data => {
+        if (!data || data.status === "error") {
+          document.getElementById("clearanceContent").textContent = "Clearance not found.";
+          return;
+        }
+
+        document.getElementById("controlNumber").textContent = data.control_number || "N/A";
+        document.getElementById("issuedDate").textContent = data.issued_date || "N/A";
+
+        const barangayName = data.address;
+        document.getElementById("barangayName").textContent = barangayName;
+
+        const issuedDate = new Date(data.issued_date);
+        const formattedDate = issuedDate.toLocaleDateString("en-PH", {
+          weekday: "short",
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+        });
+        document.getElementById("issuedDate").textContent = formattedDate;
+
+        const fullName = `${data.first_name || ""} ${data.last_name || ""}`.trim();
+
+        document.getElementById("clearanceContent").innerHTML = `
+          This is to certify that <strong>${fullName}</strong>, a resident of our barangay,
+          has requested a Barangay Clearance for the purpose of 
+          <strong>${data.purpose}</strong>.
+          <br><br>
+          Based on our records, the above-named individual is of good moral character and 
+          has no derogatory records within this barangay jurisdiction.
+          <br><br>
+          Issued this <strong>${formattedDate}</strong> at ${barangayName}.
+        `;
+      });
+  </script>
+
+</body>
+</html>

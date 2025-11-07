@@ -1,0 +1,28 @@
+body {
+  background: #f8f9fa;
+}
+
+h1, h4 {
+  color: #333;
+}
+
+.card {
+  border-radius: 12px;
+}
+
+textarea {
+  resize: none;
+}
+
+.table th {
+  background: #e9ecef !important;
+}
+
+#charCount {
+  text-align: right;
+  margin-top: -5px;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}

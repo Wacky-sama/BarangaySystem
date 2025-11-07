@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard | Barangay System</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/admin.css" />
+  </head>
+  <body class="bg-light">
+    <nav class="shadow-sm navbar navbar-expand-lg navbar-dark bg-primary">
+      <div class="container-fluid">
+        <a class="navbar-brand fw-bold" href="#">Barangay Admin</a>
+        <div class="d-flex align-items-center">
+          <span class="text-white me-3 fw-semibold" id="adminNameNav"></span>
+          <a href="login.html" class="btn btn-sm btn-light">Logout</a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container my-4">
+      <h1>Welcome, <span id="adminNameDashboard"></span>!</h1>
+
+      <h3 class="mb-4">Dashboard Overview</h3>
+
+      <div class="mb-4 row g-3" id="stats-cards"></div>
+
+      <hr class="my-4" />
+      <h4 class="mb-3">Clearance Requests For Approval</h4>
+
+      <div class="table-responsive">
+        <table class="table align-middle table-striped" id="clearanceTable">
+          <thead class="table-primary">
+            <tr>
+              <th>#</th>
+              <th>Resident Name</th>
+              <th>Purpose</th>
+              <th>Status</th>
+              <th>Issued Date</th>
+              <th>Control #</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <hr class="my-4" />
+      <h4 class="mb-3">Pending Resident Registrations</h4>
+
+      <div class="table-responsive">
+        <table class="table align-middle table-striped" id="pendingUsersTable">
+          <thead class="table-info">
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Username</th>
+              <th>Role</th>
+              <th>Date Registered</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <hr class="my-4" />
+      <h4 class="mb-3">Residents</h4>
+
+      <div class="table-responsive">
+        <table class="table align-middle table-striped" id="residentsTable">
+          <thead class="table-info">
+            <tr>
+              <th>Name</th>
+              <th>Username</th>
+              <th>Role</th>
+              <th>Date Registered</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <hr class="my-4" />
+      <h4 class="mb-3">
+        Staff Members
+        <button class="btn btn-sm btn-primary" id="addStaffBtn">
+          Add Staff
+        </button>
+      </h4>
+
+      <div class="table-responsive">
+        <table class="table align-middle table-striped" id="staffTable">
+          <thead class="table-info">
+            <tr>
+              <th>Name</th>
+              <th>Username</th>
+              <th>Role</th>
+              <th>Date Registered</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Add Staff Modal -->
+    <div
+      class="modal fade"
+      id="addStaffModal"
+      tabindex="-1"
+      aria-labelledby="addStaffModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addStaffModalLabel">Add Staff</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form id="addStaffForm">
+              <div class="mb-3">
+                <label for="staffFirstName" class="form-label"
+                  >First Name</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="staffFirstName"
+                  required
+                />
+                <small id="staffFirstNameError" class="text-danger"></small>
+              </div>
+              <div class="mb-3">
+                <label for="staffLastName" class="form-label">Last Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="staffLastName"
+                  required
+                />
+                <small id="staffLastNameError" class="text-danger"></small>
+              </div>
+              <div class="mb-3">
+                <label for="staffMiddleInitial" class="form-label"
+                  >Middle Initial</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="staffMiddleInitial"
+                  maxlength="1"
+                />
+                <small id="staffMiddleError" class="text-danger"></small>
+              </div>
+              <div class="mb-3">
+                <label for="staffUsername" class="form-label">Username</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="staffUsername"
+                  required
+                />
+                <small id="staffUsernameError" class="text-danger"></small>
+              </div>
+              <div class="mb-3">
+                <label for="staffPassword" class="form-label">Password</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="staffPassword"
+                  required
+                />
+              </div>
+              <button type="submit" class="btn btn-primary w-100">
+                Add Staff
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/admin.js"></script>
+  </body>
+</html>
